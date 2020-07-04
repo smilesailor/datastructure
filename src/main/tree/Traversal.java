@@ -11,8 +11,8 @@ public class Traversal {
      * 然后先序遍历左子树
      * 最后先序遍历右子树
      */
-    public static void preOrderTraversalByRecursion(TreeNode head){
-        if (head!=null){
+    public static void preOrderTraversalByRecursion(TreeNode head) {
+        if (head != null) {
             System.out.print(head.value + " ");
             preOrderTraversalByRecursion(head.left);
             preOrderTraversalByRecursion(head.right);
@@ -25,16 +25,16 @@ public class Traversal {
      * 当左子树遍历结束后，从栈顶弹出这个节点
      * 然后遍历这个节点的右子树
      */
-    public static void preOrderTraversalByLoop(TreeNode head){
+    public static void preOrderTraversalByLoop(TreeNode head) {
         TreeNode T = head;
         Stack<TreeNode> stack = new Stack<>();
-        while (T != null || !stack.isEmpty()){
-            while (T != null){/*一路向左并将沿途节点压入堆栈*/
+        while (T != null || !stack.isEmpty()) {
+            while (T != null) {/*一路向左并将沿途节点压入堆栈*/
                 System.out.print(T.value + " ");/*访问节点*/
                 stack.push(T);
                 T = T.left;
             }
-            if (!stack.isEmpty()){
+            if (!stack.isEmpty()) {
                 T = stack.pop();/*节点弹出堆栈*/
                 T = T.right;/*转向右子树*/
             }
@@ -47,8 +47,8 @@ public class Traversal {
      * 然后访问根节点
      * 最后中序遍历右子树
      */
-    public static void inOrderTraversalByRrcursion(TreeNode head){
-        if (head!=null){
+    public static void inOrderTraversalByRrcursion(TreeNode head) {
+        if (head != null) {
             inOrderTraversalByRrcursion(head.left);
             System.out.print(head.value + " ");
             inOrderTraversalByRrcursion(head.right);
@@ -61,15 +61,15 @@ public class Traversal {
      * 当左子树遍历结束后，从栈顶弹出这个节点并访问它
      * 然后遍历这个节点的右子树
      */
-    public static void inOrderTraversalByLoop(TreeNode head){
+    public static void inOrderTraversalByLoop(TreeNode head) {
         TreeNode T = head;
-        Stack<TreeNode> stack= new Stack<>();
-        while (T!=null || !stack.isEmpty()){
-            while (T!=null){/*一路向左并将沿途节点压入堆栈*/
+        Stack<TreeNode> stack = new Stack<>();
+        while (T != null || !stack.isEmpty()) {
+            while (T != null) {/*一路向左并将沿途节点压入堆栈*/
                 stack.push(T);
                 T = T.left;
             }
-            if(!stack.isEmpty()){
+            if (!stack.isEmpty()) {
                 T = stack.pop();/*节点弹出堆栈*/
                 System.out.print(T.value + " ");/*访问节点*/
                 T = T.right;/*转向右子树*/
@@ -83,8 +83,8 @@ public class Traversal {
      * 然后后序遍历右子树
      * 最后访问根节点
      */
-    public static void postOrderTraversalByReCursion(TreeNode head){
-        if (head!=null){
+    public static void postOrderTraversalByReCursion(TreeNode head) {
+        if (head != null) {
             postOrderTraversalByReCursion(head.left);
             postOrderTraversalByReCursion(head.right);
             System.out.print(head.value + " ");
@@ -98,23 +98,22 @@ public class Traversal {
      * 如果该节点的右子树已被访问或右子树不存在,则访问结点
      * 否则不应该弹出该结点, 结点再次入栈并继续遍历右子树
      */
-    public static void postOrderTraversalByLoop(TreeNode head){
+    public static void postOrderTraversalByLoop(TreeNode head) {
         TreeNode T = head;
         TreeNode P = null;/*P是上一个已经被访问的节点*/
         Stack<TreeNode> stack = new Stack<>();
-        while (T!=null || !stack.isEmpty()){
-            while (T!=null){/*一直向左并将沿途结点压入堆栈*/
+        while (T != null || !stack.isEmpty()) {
+            while (T != null) {/*一直向左并将沿途结点压入堆栈*/
                 stack.push(T);
                 T = T.left;
             }
-            if (!stack.isEmpty()){
+            if (!stack.isEmpty()) {
                 T = stack.pop();/*暂时将节点弹出*/
-                if (T.right == P || T.right == null){/*如果，右孩子已访问或右孩子不存在, 访问结点*/
+                if (T.right == P || T.right == null) {/*如果，右孩子已访问或右孩子不存在, 访问结点*/
                     System.out.print(T.value + " ");/*访问节点*/
                     P = T;/*p指向已经被访问的节点*/
                     T = null;/*树置为空(该树的左\右\根结点已经访问)*/
-                }
-                else {
+                } else {
                     stack.push(T);/*否则，不应该弹出结点, 结点再次入栈*/
                     T = T.right;/*继续遍历右子树*/
                 }
@@ -128,47 +127,86 @@ public class Traversal {
      * 首先根节点入队
      * 然后执行循环：节点出队，访问该节点，其左右儿子入队
      */
-    public static void levelOrderTraversalByQueue(TreeNode head){
+    public static void levelOrderTraversalByQueue(TreeNode head) {
         TreeNode T = head;
-        if (T!=null){
+        if (T != null) {
             Queue<TreeNode> queue = new ArrayDeque<>();/*创建队列*/
             queue.offer(T);/*根节点入队*/
-            while (!queue.isEmpty()){
+            while (!queue.isEmpty()) {
                 T = queue.poll();/*节点出队*/
                 System.out.print(T.value + " ");/*访问节点*/
-                if (T.left!=null){/*其左右儿子入队*/
+                if (T.left != null) {/*其左右儿子入队*/
                     queue.offer(T.left);
                 }
-                if (T.right!=null){
+                if (T.right != null) {
                     queue.offer(T.right);
                 }
             }
         }
     }
 
+//    public static void main(String[] args) {
+//        TreeNode A = new TreeNode("A");
+//        TreeNode B = new TreeNode("B");
+//        TreeNode C = new TreeNode("C");
+//        TreeNode D = new TreeNode("D");
+//        TreeNode E = new TreeNode("E");
+//        TreeNode F = new TreeNode("F");
+//        TreeNode G = new TreeNode("G");
+//        TreeNode H = new TreeNode("H");
+//        TreeNode I = new TreeNode("I");
+//        TreeNode J = new TreeNode("J");
+//        TreeNode K = new TreeNode("K");
+//
+//        A.left = B;
+//        A.right = C;
+//        B.left = D;
+//        B.right = E;
+//        D.left = H;
+//        D.right = I;
+//        E.right = J;
+//        C.left = F;
+//        C.right = G;
+//        F.right = K;
+//
+//        preOrderTraversalByRecursion(A);
+//        System.out.println();
+//        preOrderTraversalByLoop(A);
+//        System.out.println();
+//        inOrderTraversalByRrcursion(A);
+//        System.out.println();
+//        inOrderTraversalByLoop(A);
+//        System.out.println();
+//        postOrderTraversalByReCursion(A);
+//        System.out.println();
+//        postOrderTraversalByLoop(A);
+//        System.out.println();
+//        levelOrderTraversalByQueue(A);
+//    }
+
     public static void main(String[] args) {
-        TreeNode A = new TreeNode("A");
-        TreeNode B = new TreeNode("B");
-        TreeNode C = new TreeNode("C");
-        TreeNode D = new TreeNode("D");
-        TreeNode E = new TreeNode("E");
-        TreeNode F = new TreeNode("F");
-        TreeNode G = new TreeNode("G");
-        TreeNode H = new TreeNode("H");
-        TreeNode I = new TreeNode("I");
-        TreeNode J = new TreeNode("J");
-        TreeNode K = new TreeNode("K");
+        TreeNode A = new TreeNode(6);
+        TreeNode B = new TreeNode(3);
+        TreeNode C = new TreeNode(9);
+        TreeNode D = new TreeNode(1);
+        TreeNode E = new TreeNode(4);
+        TreeNode F = new TreeNode(7);
+        TreeNode G = new TreeNode(10);
+        TreeNode H = new TreeNode(2);
+        TreeNode I = new TreeNode(5);
+        TreeNode J = new TreeNode(8);
+        TreeNode K = new TreeNode(11);
 
         A.left = B;
         A.right = C;
         B.left = D;
         B.right = E;
-        D.left = H;
-        D.right = I;
-        E.right = J;
         C.left = F;
         C.right = G;
-        F.right = K;
+        D.right = H;
+        E.right = I;
+        F.right = J;
+        G.right = K;
 
         preOrderTraversalByRecursion(A);
         System.out.println();

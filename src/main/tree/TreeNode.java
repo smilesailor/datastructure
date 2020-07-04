@@ -1,11 +1,11 @@
 package main.tree;
 
 public class TreeNode {
-    public String value;
+    public int value;
     public TreeNode left;
     public TreeNode right;
 
-    public TreeNode(String value){
+    public TreeNode(int value){
         this.value = value;
     }
 }
