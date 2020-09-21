@@ -1,5 +1,7 @@
 package main.graph;
 
+import java.util.LinkedList;
+
 public class MatrixNDG {
     int size;
     char[] vertexs;
@@ -36,6 +38,49 @@ public class MatrixNDG {
         }
     }
 
+    public void DFS() {
+        boolean[] beTraversed = new boolean[size];
+        System.out.print(vertexs[0] + " ");
+        beTraversed[0] = true;
+        DFS(0, 0, beTraversed);
+    }
+
+    private void DFS(int x, int y, boolean[] beTraversed) {
+        while (y <= size - 1) {
+            if (matrix[x][y] != 0 && beTraversed[y] == false) {
+                System.out.print(vertexs[y] + " ");
+                beTraversed[y] = true;
+                DFS(y, 0, beTraversed);
+            }
+            y++;
+        }
+    }
+
+    public void BFS() {
+        boolean[] beTraversed = new boolean[size];
+        System.out.print(vertexs[0] + " ");
+        beTraversed[0] = true;
+        BFS(0, beTraversed);
+    }
+
+    private void BFS(int x, boolean[] beTraversed) {
+        LinkedList<Character> list = new LinkedList<>();
+        int y = 0;
+        while (y <= size - 1) {
+            if (matrix[x][y] != 0 && beTraversed[y] == false) {
+                System.out.print(vertexs[y] + " ");
+                beTraversed[y] = true;
+                list.add(vertexs[y]);
+            }
+            y++;
+        }
+        while (!list.isEmpty()) {
+            char ch = list.pop();
+            int p = getPosition(ch);
+            BFS(p, beTraversed);
+        }
+    }
+
     public static void main(String[] args) {
         char[] vexs = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'};
         char[][] edges = new char[][]{
@@ -53,5 +98,7 @@ public class MatrixNDG {
         };
         MatrixNDG G = new MatrixNDG(vexs, edges);
         G.print();
+        G.DFS();
+        G.BFS();
     }
 }

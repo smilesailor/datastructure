@@ -1,5 +1,7 @@
 package main.graph;
 
+import java.util.LinkedList;
+
 public class ListNDG {
     class Vertex {
         char ch;
@@ -57,6 +59,51 @@ public class ListNDG {
         }
     }
 
+    public void DFS() {
+        boolean[] beTraversed = new boolean[size];
+        for (int i = 0; i < size; i++) {
+            if (!beTraversed[i]) {
+                DFS(beTraversed, vertexLists[i]);
+            }
+        }
+    }
+
+    private void DFS(boolean[] beTraversed, Vertex head) {
+        System.out.print(head.ch + " ");
+        beTraversed[getPosition(head.ch)] = true;
+        while (head != null) {
+            if (beTraversed[getPosition(head.ch)] == false) {
+                DFS(beTraversed, vertexLists[getPosition(head.ch)]);
+            }
+            head = head.next;
+        }
+    }
+
+    public void BFS() {
+        boolean[] beTraversed = new boolean[size];
+        System.out.print(vertexLists[0].ch + " ");
+        beTraversed[0] = true;
+        BFS(0, beTraversed);
+    }
+
+    private void BFS(int x, boolean[] beTraversed) {
+        Vertex head = vertexLists[x];
+        LinkedList<Vertex> list = new LinkedList<>();
+        while (head != null) {
+            if (beTraversed[getPosition(head.ch)] == false) {
+                System.out.print(head.ch + " ");
+                beTraversed[getPosition(head.ch)] = true;
+                list.add(head);
+            }
+            head = head.next;
+        }
+        while (!list.isEmpty()) {
+            Vertex vt = list.pop();
+            int p = getPosition(vt.ch);
+            BFS(p, beTraversed);
+        }
+    }
+
     public static void main(String[] args) {
         char[] vexs = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'};
         char[][] edges = new char[][]{
@@ -74,5 +121,7 @@ public class ListNDG {
         };
         ListNDG G = new ListNDG(vexs, edges);
         G.print();
+        G.DFS();
+        G.BFS();
     }
 }
